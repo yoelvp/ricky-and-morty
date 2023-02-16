@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 const Card = ({ character }) => {
   return (
     <Link
-      to={`character/${character.name.toLowerCase().replace(' ', '-')}`}
+      to={`character/${character.id}`}
       className="inline-block bg-slate-800 rounded-xl overflow-hidden border border-yellow-500"
     >
       <div className="w-full relative">

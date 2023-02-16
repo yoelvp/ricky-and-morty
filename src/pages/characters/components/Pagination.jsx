@@ -9,9 +9,9 @@ const Pagination = ({ pageCounter, setPageNumber }) => {
         breakLabel="..."
         breakLinkClassName="w-8 h-8 flex justify-center items-center"
         nextLabel={<IoIosArrowForward size={20} />}
-        nextClassName="w-8 h-8 flex justify-center items-center rounded-r-[6px] border border-gray-500"
+        nextLinkClassName="w-8 h-8 flex justify-center items-center rounded-r-[6px] border border-gray-500"
         previousLabel={<IoIosArrowBack size={20} />}
-        previousClassName="w-8 h-8 flex justify-center items-center rounded-l-[6px] border border-gray-500"
+        previousLinkClassName="w-8 h-8 flex justify-center items-center rounded-l-[6px] border border-gray-500"
         pageCount={pageCounter}
         pageLinkClassName="w-8 h-8 flex justify-center items-center border border-gray-400"
         activeLinkClassName="bg-gray-400"

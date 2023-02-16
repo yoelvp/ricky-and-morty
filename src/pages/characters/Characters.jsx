@@ -1,48 +1,41 @@
-import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { getCharacters } from '../../services/characters'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import Layout from '../../layout/Layout'
+import Card from './components/Card'
+import Pagination from './components/Pagination'
 
 const Characters = () => {
   const [characters, setCharacters] = useState([])
-  const [pages, setPages] = useState(null)
-  const [prevPage, setPrevPage] = useState(null)
-  const [nextPage, setNextPage] = useState(null)
+  const [pageCounter, setPageCounter] = useState(1)
+  const [pageNumber, setPageNumber] = useState(1)
 
   useEffect(() => {
-    getCharacters({ page: prevPage || nextPage })
+    getCharacters()
+  }, [pageNumber])
+
+  const getCharacters = async () => {
+    await axios.get(`https://rickandmortyapi.com/api/character?page=${pageNumber}`)
+      .then(response => response.data)
       .then(data => {
+        setPageCounter(data.info?.pages)
         setCharacters(data.results)
-        setPages(data.info?.pages)
-        setPrevPage(data.info?.prev)
-        setNextPage(data.info?.next)
-      }).catch(error => {
-        console.error(error)
       })
-  }, [])
+      .catch(error => console.error(error))
+  }
 
   return (
-    <div>
-      <h1>
-        Characters
+    <Layout>
+      <h1 className='text-3xl font-bold text-yellow-500 mb-4 text-center underline underline-offset-4'>
+        Personajes de la serie Ricky And Morty
       </h1>
-      <h1 className='text-dark'>
-        Hello world
-      </h1>
-      <p>Pages: {pages}</p>
-      {
-        characters.map(character => {
-          return (
-            <li key={character.id}>{character.name}</li>
-          )
-        })
-      }
-      <Link to={prevPage} className='bg-red-400'>
-        Previous
-      </Link>
-      <Link to={nextPage}>
-        Next
-      </Link>
-    </div>
+      <section className='grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-8'>
+        {characters.map(character => <Card key={character.id} character={character} />)}
+      </section>
+      <Pagination
+        pageCounter={pageCounter}
+        setPageNumber={setPageNumber}
+      />
+    </Layout>
   )
 }
 

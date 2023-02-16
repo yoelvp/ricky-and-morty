@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 
-import Home from '../pages/home/Home'
 import Characters from '../pages/characters/Characters'
+import CharacterDetails from '../pages/characters/CharacterDetails'
 
 import Header from '../components/Header'
 
@@ -10,8 +10,8 @@ const Routing = () => {
     <>
       <Header />
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/characters' element={<Characters />} />
+        <Route path='/' element={<Characters />} />
+        <Route path='/character/:id' element={<CharacterDetails />} />
       </Routes>
     </>
   )
